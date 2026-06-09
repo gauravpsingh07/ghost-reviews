@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { analyzeReviews } from "@/lib/engine/analyze";
-import type { Review } from "@/types";
+import type { LlmReviewScore, Review } from "@/types";
 
 function mk(id: string, rating: number, date: string, text: string): Review {
   return { id, rating, date: new Date(date).toISOString(), text, source: "amazon" };
@@ -35,5 +35,24 @@ describe("analyzeReviews", () => {
     expect(res.ghostScore).toBeGreaterThan(40);
     expect(res.hauntings.length).toBeGreaterThan(0);
     expect(res.reviews.some((r) => r.verdict === "ghost")).toBe(true);
+  });
+
+  it("integrates LLM scores into aggregate signals and per-review reasons", () => {
+    const reviews = [
+      mk("ai", 5, "2026-06-01", "This product exceeded all expectations and is truly amazing."),
+      mk("human", 4, "2026-06-02", "The zipper snagged once, but the side pocket fits my charger."),
+    ];
+    const llm = new Map<string, LlmReviewScore>([
+      ["ai", { id: "ai", aiLikelihood: 0.95, specificity: 0.1, sentiment: 0.9 }],
+      ["human", { id: "human", aiLikelihood: 0.1, specificity: 0.9, sentiment: 0.6 }],
+    ]);
+
+    const res = analyzeReviews({ product: { name: "Gadget", source: "amazon" }, reviews, llm });
+
+    expect(res.signals.aiGenerated).toBeGreaterThan(0.4);
+    expect(res.signals.generic).toBeGreaterThan(0.4);
+    expect(res.hauntings.map((h) => h.id)).toContain("aiGenerated");
+    expect(res.hauntings.map((h) => h.id)).toContain("generic");
+    expect(res.reviews.find((r) => r.id === "ai")?.reasons).toContain("reads as AI-generated");
   });
 });

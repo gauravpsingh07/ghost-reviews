@@ -9,5 +9,6 @@ export { duplication } from "./signals/duplication";
 export { ratingAnomaly } from "./signals/ratingAnomaly";
 export { incentivized } from "./signals/incentivized";
 export { sentimentMismatch } from "./signals/sentimentMismatch";
+export { aiGeneratedSignal, genericSignal } from "./signals/llmSignals";
 export type { SignalResult } from "./types";
 export { clamp01, median, mean } from "./math";

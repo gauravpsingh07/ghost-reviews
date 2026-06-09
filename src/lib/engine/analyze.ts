@@ -1,11 +1,11 @@
 import type { Review, ScanResult, SignalScores, LlmReviewScore, AnalyzedReview } from "@/types";
 import type { SignalResult } from "./types";
-import { mean } from "./math";
 import { burstiness } from "./signals/burstiness";
 import { duplication } from "./signals/duplication";
 import { ratingAnomaly } from "./signals/ratingAnomaly";
 import { incentivized } from "./signals/incentivized";
 import { sentimentMismatch } from "./signals/sentimentMismatch";
+import { aiGeneratedSignal, genericSignal } from "./signals/llmSignals";
 import { ghostScore, verdictTier } from "./score";
 import { classifyReview } from "./verdict";
 import { buildHauntings } from "./hauntings";
@@ -33,18 +33,16 @@ export function analyzeReviews({
     duplication: duplication(reviews),
     ratingAnomaly: ratingAnomaly(reviews),
     incentivized: incentivized(reviews),
+    aiGenerated: aiGeneratedSignal(reviews, llm),
+    generic: genericSignal(reviews, llm),
     sentimentMismatch: sentimentMismatch(reviews, llm),
   };
-
-  const llmScores = llm ? [...llm.values()] : [];
-  const aiGenerated = mean(llmScores.map((s) => s.aiLikelihood));
-  const generic = mean(llmScores.map((s) => 1 - s.specificity));
 
   const signals: SignalScores = {
     burstiness: results.burstiness!.score,
     duplication: results.duplication!.score,
-    aiGenerated,
-    generic,
+    aiGenerated: results.aiGenerated!.score,
+    generic: results.generic!.score,
     ratingAnomaly: results.ratingAnomaly!.score,
     sentimentMismatch: results.sentimentMismatch!.score,
     incentivized: results.incentivized!.score,
