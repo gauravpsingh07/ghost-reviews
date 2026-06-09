@@ -7,9 +7,11 @@ import { z } from "zod";
  */
 const schema = z.object({
   LLM_PROVIDER: z.enum(["groq", "gemini", "runpod", "anthropic", "openai"]).default("groq"),
-  LLM_MODEL: z.string().default("llama-3.3-70b-versatile"),
+  LLM_MODEL: z.string().optional(),
   GROQ_API_KEY: z.string().optional(),
   GEMINI_API_KEY: z.string().optional(),
+  RUNPOD_API_KEY: z.string().optional(),
+  RUNPOD_ENDPOINT_URL: z.string().optional(),
   ANTHROPIC_API_KEY: z.string().optional(),
   OPENAI_API_KEY: z.string().optional(),
   NIMBLE_API_KEY: z.string().optional(),
@@ -26,7 +28,5 @@ export type Env = typeof env;
 
 /** True when no live LLM key is configured (use demo mode / deterministic-only scoring). */
 export function hasLlmKey(): boolean {
-  return Boolean(
-    env.GROQ_API_KEY || env.GEMINI_API_KEY || env.ANTHROPIC_API_KEY || env.OPENAI_API_KEY,
-  );
+  return Boolean(env.GROQ_API_KEY || env.GEMINI_API_KEY || env.RUNPOD_API_KEY);
 }
