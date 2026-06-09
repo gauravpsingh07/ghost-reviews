@@ -10,6 +10,7 @@ import { GhostScoreGauge } from "@/components/results/ghost-score-gauge";
 import { HauntingsList } from "@/components/results/hauntings-list";
 import { ReviewCards } from "@/components/results/review-cards";
 import { ScanLoadingState } from "@/components/results/scan-loading-state";
+import { ShareHauntingButton } from "@/components/results/share-haunting-button";
 import { SignalBreakdownMeters } from "@/components/results/signal-breakdown-meters";
 import { VerdictBanner } from "@/components/results/verdict-banner";
 
@@ -92,6 +93,9 @@ function ResultsComposition({ result }: { result: ScanResult }) {
             ) : null}
           </div>
           <VerdictBanner verdict={result.verdict} score={result.ghostScore} />
+          <div className="mt-3 flex justify-start">
+            <ShareHauntingButton result={result} />
+          </div>
         </div>
       </section>
 
