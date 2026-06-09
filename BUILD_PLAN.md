@@ -584,19 +584,19 @@ Phase 1 — Scaffolding  ✅ (build + tests green)
 - [x] 5 folder structure (engine / nimble / llm / fixtures / types)
 - [x] 6 zod env config + theme tokens
 
-NEXT UP → Phase 2 (commits 7-16): core types + deterministic detection engine. See §14.
+NEXT UP → Phase 3 (commits 17-21): LLM signals (Groq/Gemini) wired into the engine. See §14.
 
-Phase 2 — Types & engine
-- [ ] 7 core types
-- [ ] 8 normalization utils
-- [ ] 9 burstiness
-- [ ] 10 rating anomaly
-- [ ] 11 near-duplication
-- [ ] 12 incentivized language
-- [ ] 13 sentiment-rating mismatch
-- [ ] 14 ghost score blend + tiers
-- [ ] 15 per-review verdict
-- [ ] 16 hauntings aggregator
+Phase 2 — Types & engine  ✅ (27 tests, build green)
+- [x] 7 core types
+- [x] 8 normalization utils + id hashing + math
+- [x] 9 burstiness
+- [x] 10 rating anomaly
+- [x] 11 near-duplication (cosine)
+- [x] 12 incentivized language
+- [x] 13 sentiment-rating mismatch (scaffold; needs LLM)
+- [x] 14 ghost score blend + tiers
+- [x] 15 per-review verdict
+- [x] 16 hauntings aggregator + analyzeReviews orchestrator
 
 Phase 3 — LLM
 - [ ] 17 anthropic client
@@ -655,4 +655,5 @@ Phase 9 — Deploy & submission
 
 - 2026-06-09 — Phase 0: repo init, master build plan, tested secret-scanning pre-commit hook, free-tier ($0) docs — commits `dc242c8..ac9b6d1`
 - 2026-06-09 — Phase 1: Next.js 15.5 + React 19 + Tailwind v4 + TS scaffold, shadcn button + framer-motion + lucide, eslint 9 / prettier / vitest, folder structure, zod env + theme tokens. `npm run build` ✓, tests 2/2 ✓ — commits `f69c67f..da2ee02`
-- _(next: Phase 2 — core types + deterministic detection engine, commits 7–16)_
+- 2026-06-09 — Phase 2: core types + deterministic detection engine — normalize/id-hash + math, 5 signals (burstiness, rating-anomaly, near-duplication, incentivized, sentiment-mismatch scaffold), Ghost Score blend + verdict tiers, per-review verdicts, hauntings aggregator, `analyzeReviews` orchestrator. 27 tests ✓, build ✓ — commits `e5f4002..bbfbf15`
+- _(next: Phase 3 — LLM signals via Groq/Gemini, commits 17–21)_
