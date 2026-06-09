@@ -584,7 +584,7 @@ Phase 1 — Scaffolding  ✅ (build + tests green)
 - [x] 5 folder structure (engine / nimble / llm / fixtures / types)
 - [x] 6 zod env config + theme tokens
 
-NEXT UP → Phase 6 (commits 31-33): API route. See §14 and §6.
+NEXT UP → Phase 7 (commits 34-41): UI result experience. See §14 and §10.
 
 Phase 2 — Types & engine  ✅ (27 tests, build green)
 - [x] 7 core types
@@ -618,10 +618,10 @@ Phase 5 — Demo mode ✅ (76 tests, build green)
 - [x] 29 demo toggle + loader
 - [x] 30 snapshot test
 
-Phase 6 — API
-- [ ] 31 /api/scan orchestration
-- [ ] 32 zod validation + errors
-- [ ] 33 caching + rate-limit
+Phase 6 — API ✅ (85 tests, build green)
+- [x] 31 /api/scan orchestration
+- [x] 32 zod validation + errors
+- [x] 33 caching + rate-limit
 
 Phase 7 — UI
 - [ ] 34 gauge
@@ -659,4 +659,5 @@ Phase 9 — Deploy & submission
 - 2026-06-09 — Phase 3: free-provider LLM config/client wrapper, batched strict-JSON review analysis prompt, AI/generic/sentiment signal integration, guarded haunting-explanation rewrites, and mocked full-engine integration coverage. 44 tests ✓, build ✓ — commits `fb11beb..261e558`
 - 2026-06-09 — Phase 4: Nimble SDK API client wrapper with current `https://sdk.nimbleway.com/v1` default, query-to-review-source resolution, raw extract/crawl content helpers, raw-output-to-Review mapping, Trustpilot/Amazon adapters, and fixture payload parser coverage. 68 tests ✓, build ✓ — commits `0307dae..edfb552`
 - 2026-06-09 — Phase 5: three cached demo ScanResult fixtures, env/query-match demo loader with no-network fallback, and snapshot coverage over fixture scores, signals, hauntings, and per-review verdicts. 76 tests ✓, build ✓ — commits `64f5a27..7a994a0`
-- _(next: Phase 6 — API route, commits 31–33)_
+- 2026-06-09 — Phase 6: POST `/api/scan` orchestration with demo-first no-network path, live Nimble/engine/LLM path, Zod request validation, typed error responses, response cache, and basic rate-limit guard. 85 tests ✓, build ✓ — commits `bc60950..8a735fd`
+- _(next: Phase 7 — UI result experience, commits 34–41)_
