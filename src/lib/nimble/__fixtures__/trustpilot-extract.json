@@ -1,0 +1,28 @@
+{
+  "url": "https://www.trustpilot.com/review/demo.test",
+  "task_id": "fixture-trustpilot-task",
+  "status": "success",
+  "status_code": 200,
+  "data": {
+    "markdown": "# Demo Product Reviews\n\n5 stars - The replacement charger arrived in two days and held up through a full travel week.",
+    "parsing": {
+      "reviews": [
+        {
+          "authorName": "Lena M.",
+          "rating": "5 stars",
+          "publishedDate": "2026-05-28",
+          "reviewText": "The replacement charger arrived in two days and held up through a full travel week."
+        },
+        {
+          "authorName": "Omar K.",
+          "rating": "2 stars",
+          "publishedDate": "2026-05-30",
+          "reviewText": "Support replied quickly, but the second cable still stopped working after three charges."
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "driver": "vx8"
+  }
+}

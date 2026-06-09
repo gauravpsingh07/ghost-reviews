@@ -2,9 +2,27 @@ import type { Review, SourceId } from "@/types";
 import { normalizeReviews, type RawReview } from "@/lib/engine/normalize";
 import type { RawReviewContentPage } from "./content";
 
-const TEXT_KEYS = ["text", "reviewText", "review_text", "content", "body", "comment", "description"];
+const TEXT_KEYS = [
+  "text",
+  "reviewText",
+  "review_text",
+  "reviewBody",
+  "review_body",
+  "content",
+  "body",
+  "comment",
+  "description",
+];
 const RATING_KEYS = ["rating", "stars", "score", "ratingValue", "reviewRating"];
-const DATE_KEYS = ["date", "publishedDate", "published_at", "createdAt", "created_at"];
+const DATE_KEYS = [
+  "date",
+  "publishedDate",
+  "published_at",
+  "datePublished",
+  "date_published",
+  "createdAt",
+  "created_at",
+];
 const AUTHOR_KEYS = ["author", "authorName", "author_name", "user", "username", "name"];
 
 function isRecord(value: unknown): value is Record<string, unknown> {

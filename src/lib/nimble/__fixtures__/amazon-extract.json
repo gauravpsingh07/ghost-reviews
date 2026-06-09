@@ -1,0 +1,38 @@
+{
+  "url": "https://www.amazon.com/product-reviews/B000DEMO",
+  "task_id": "fixture-amazon-task",
+  "status": "success",
+  "status_code": 200,
+  "data": {
+    "markdown": "Verified Purchase. Rating: 4/5 The battery charged my laptop twice on a train ride.",
+    "parsing": {
+      "reviews": [
+        {
+          "author": {
+            "name": "Priya"
+          },
+          "reviewRating": {
+            "ratingValue": 4
+          },
+          "datePublished": "2026-05-31",
+          "reviewBody": "Verified Purchase. The battery charged my laptop twice on a train ride.",
+          "verifiedPurchase": true
+        },
+        {
+          "author": {
+            "name": "Mateo"
+          },
+          "reviewRating": {
+            "ratingValue": 1
+          },
+          "datePublished": "2026-06-01",
+          "reviewBody": "It overheated during the first charge and the case smelled like burnt plastic.",
+          "verifiedPurchase": false
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "driver": "vx8"
+  }
+}
