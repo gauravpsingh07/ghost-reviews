@@ -22,6 +22,21 @@ truth: full product spec, architecture, data types, API contract, and a phased c
 - Stack is committed (Next.js + TS + Tailwind + shadcn/ui). Do not swap frameworks without updating
   `BUILD_PLAN.md` first.
 
+## Secret protection (already set up — keep it working)
+
+This repo blocks secrets at commit time:
+- `.gitignore` ignores all `.env*` (except `.env.example`) plus key/credential files.
+- A pre-commit hook at `.githooks/pre-commit` rejects any staged env/key file and any content that
+  looks like an API key, access token, or private key. It is enabled via `core.hooksPath`.
+- GitHub secret-scanning push protection is enabled on the remote as a server-side backstop.
+
+**After a fresh clone, enable the hook once:**
+```
+git config core.hooksPath .githooks
+```
+Rules: real keys live ONLY in `.env.local` (gitignored). Never put real keys in tracked files, docs,
+or chat. To bypass the hook for a genuine false positive: `git commit --no-verify` (use rarely).
+
 ## Context (one paragraph)
 
 ghost.reviews is a hackathon project for DeveloperWeek New York 2026, targeting the name.com

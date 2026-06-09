@@ -1,0 +1,40 @@
+#!/bin/sh
+# ghost.reviews pre-commit hook — blocks secrets & env files from being committed.
+# Bypass for a genuine false positive (rare): git commit --no-verify
+set -u
+
+red='\033[31m'; nc='\033[0m'
+fail() { printf "%bBLOCKED by pre-commit hook:%b %s\n" "$red" "$nc" "$1" >&2; exit 1; }
+
+staged=$(git diff --cached --name-only --diff-filter=ACM)
+
+# 1) Block env / key / credential files by name (templates allowed)
+for f in $staged; do
+  base=${f##*/}
+  case "$base" in
+    .env.example|.env.sample|.env.template) continue ;;
+  esac
+  case "$base" in
+    .env|.env.*|*.env)
+      fail "env file staged: $f  (put real values in .env.local — it is gitignored)" ;;
+  esac
+  case "$base" in
+    *.pem|*.key|*.p12|*.pfx|*_rsa|id_rsa|credentials.json|service-account*.json|secrets.json)
+      fail "credential/key file staged: $f" ;;
+  esac
+done
+
+# 2) Scan staged additions for secret-looking content (the hook dir is trusted/excluded)
+pattern='sk-ant-[A-Za-z0-9_-]{20}|sk-[A-Za-z0-9]{20}|gh[pousr]_[A-Za-z0-9]{20}|github_pat_[A-Za-z0-9_]{20}|AKIA[0-9A-Z]{16}|xox[baprs]-[A-Za-z0-9-]{10}|AIza[0-9A-Za-z_-]{30}|-----BEGIN [A-Z ]*PRIVATE KEY-----'
+assign='(API_KEY|APIKEY|ACCESS_KEY|SECRET|TOKEN|PASSWORD|PASSWD|PRIVATE_KEY)[":= ]*[A-Za-z0-9/+=_-]{16}'
+
+added=$(git diff --cached -U0 --diff-filter=ACM -- . ':(exclude).githooks/**' | grep -E '^\+' | grep -vE '^\+\+\+' || true)
+hits=$(printf '%s\n' "$added" | grep -nE "$pattern|$assign" || true)
+
+if [ -n "$hits" ]; then
+  printf "%bBLOCKED by pre-commit hook — possible secret in staged changes:%b\n%s\n" "$red" "$nc" "$hits" >&2
+  printf "If this is a genuine false positive: git commit --no-verify\n" >&2
+  exit 1
+fi
+
+exit 0

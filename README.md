@@ -60,6 +60,10 @@ npm run dev                  # http://localhost:3000
 
 Set `DEMO_MODE=true` to run on bundled fixtures without any API keys.
 
+> **Secrets:** real keys go only in `.env.local` (gitignored). A pre-commit hook blocks accidental
+> commits of `.env`/key files and key-like content. After cloning, enable it once with
+> `git config core.hooksPath .githooks`.
+
 ## Project status & full plan
 
 This repo is built in phases (~50 commits). The complete spec, architecture, API contract, and

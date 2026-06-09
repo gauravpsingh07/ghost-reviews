@@ -1,0 +1,2 @@
+# Keep the shell hook LF so it executes on every platform (incl. Git for Windows)
+.githooks/pre-commit text eol=lf
