@@ -4,3 +4,4 @@ export * from "./client";
 export * from "./sources";
 export * from "./content";
 export * from "./reviews";
+export * from "./adapters";
