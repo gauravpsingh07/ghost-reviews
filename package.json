@@ -8,6 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "check:final-env": "node scripts/check-final-env.mjs",
+    "smoke:prod": "node scripts/production-smoke.mjs",
     "test": "vitest run",
     "test:watch": "vitest"
   },

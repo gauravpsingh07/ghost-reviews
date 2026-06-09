@@ -2,5 +2,11 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
   "installCommand": "npm ci",
+  "env": {
+    "DEMO_MODE": "true",
+    "LLM_PROVIDER": "groq",
+    "LLM_MODEL": "llama-3.3-70b-versatile",
+    "NIMBLE_BASE_URL": "https://sdk.nimbleway.com/v1"
+  },
   "regions": ["iad1"]
 }
