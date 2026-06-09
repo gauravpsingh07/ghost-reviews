@@ -584,7 +584,7 @@ Phase 1 — Scaffolding  ✅ (build + tests green)
 - [x] 5 folder structure (engine / nimble / llm / fixtures / types)
 - [x] 6 zod env config + theme tokens
 
-NEXT UP → Phase 5 (commits 28-30): Demo mode & fixtures. See §14 and §9.
+NEXT UP → Phase 6 (commits 31-33): API route. See §14 and §6.
 
 Phase 2 — Types & engine  ✅ (27 tests, build green)
 - [x] 7 core types
@@ -613,10 +613,10 @@ Phase 4 — Nimble ✅ (68 tests, build green)
 - [x] 26 trustpilot + amazon adapters
 - [x] 27 parser tests
 
-Phase 5 — Demo mode
-- [ ] 28 fixtures
-- [ ] 29 demo toggle + loader
-- [ ] 30 snapshot test
+Phase 5 — Demo mode ✅ (76 tests, build green)
+- [x] 28 fixtures
+- [x] 29 demo toggle + loader
+- [x] 30 snapshot test
 
 Phase 6 — API
 - [ ] 31 /api/scan orchestration
@@ -658,4 +658,5 @@ Phase 9 — Deploy & submission
 - 2026-06-09 — Phase 2: core types + deterministic detection engine — normalize/id-hash + math, 5 signals (burstiness, rating-anomaly, near-duplication, incentivized, sentiment-mismatch scaffold), Ghost Score blend + verdict tiers, per-review verdicts, hauntings aggregator, `analyzeReviews` orchestrator. 27 tests ✓, build ✓ — commits `e5f4002..bbfbf15`
 - 2026-06-09 — Phase 3: free-provider LLM config/client wrapper, batched strict-JSON review analysis prompt, AI/generic/sentiment signal integration, guarded haunting-explanation rewrites, and mocked full-engine integration coverage. 44 tests ✓, build ✓ — commits `fb11beb..261e558`
 - 2026-06-09 — Phase 4: Nimble SDK API client wrapper with current `https://sdk.nimbleway.com/v1` default, query-to-review-source resolution, raw extract/crawl content helpers, raw-output-to-Review mapping, Trustpilot/Amazon adapters, and fixture payload parser coverage. 68 tests ✓, build ✓ — commits `0307dae..edfb552`
-- _(next: Phase 5 — Demo mode & fixtures, commits 28–30)_
+- 2026-06-09 — Phase 5: three cached demo ScanResult fixtures, env/query-match demo loader with no-network fallback, and snapshot coverage over fixture scores, signals, hauntings, and per-review verdicts. 76 tests ✓, build ✓ — commits `64f5a27..7a994a0`
+- _(next: Phase 6 — API route, commits 31–33)_
