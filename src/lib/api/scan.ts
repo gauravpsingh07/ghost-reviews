@@ -11,7 +11,12 @@ export const scanRequestSchema = z.object({
 
 export type ScanRequestBody = z.infer<typeof scanRequestSchema>;
 
-export type ApiErrorCode = "BAD_REQUEST" | "NO_REVIEWS" | "UPSTREAM_ERROR" | "INTERNAL_ERROR";
+export type ApiErrorCode =
+  | "BAD_REQUEST"
+  | "NO_REVIEWS"
+  | "UPSTREAM_ERROR"
+  | "RATE_LIMITED"
+  | "INTERNAL_ERROR";
 
 export interface ApiErrorResponse {
   error: {
@@ -67,6 +72,18 @@ export function scanErrorResponse(error: unknown): { status: number; body: ApiEr
       error: {
         code: "INTERNAL_ERROR",
         message: "The scan failed unexpectedly.",
+      },
+    },
+  };
+}
+
+export function rateLimitErrorResponse(): { status: number; body: ApiErrorResponse } {
+  return {
+    status: 429,
+    body: {
+      error: {
+        code: "RATE_LIMITED",
+        message: "Too many scans. Please wait a moment and try again.",
       },
     },
   };
