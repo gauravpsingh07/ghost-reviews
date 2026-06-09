@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { type FormEvent, useState } from "react";
 import { AlertCircle, Radar, RotateCcw, Search, ShieldCheck } from "lucide-react";
 import type { ScanResult } from "@/types";
@@ -147,77 +148,88 @@ export function ScanExperience() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-8 sm:px-6 lg:px-8">
-        <header className="grid gap-4">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-normal text-violet-300">
-              ghost.reviews
-            </p>
-            <h1 className="mt-2 max-w-3xl text-4xl font-black tracking-normal text-zinc-50 sm:text-5xl">
-              Every product is haunted. We find the ghosts.
-            </h1>
-            <p className="mt-3 max-w-2xl text-base leading-7 text-zinc-400">
-              Paste a product name or review URL to get a Ghost Score with concrete review evidence.
-            </p>
-          </div>
-          <form
-            className="grid gap-3 rounded-lg border border-zinc-800 bg-zinc-950/70 p-3 sm:grid-cols-[1fr_auto]"
-            onSubmit={handleSubmit}
-          >
-            <label className="sr-only" htmlFor="scan-query">
-              Product name or review URL
-            </label>
-            <input
-              id="scan-query"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Product name or review URL"
-              className="h-12 min-w-0 rounded-md border border-zinc-800 bg-zinc-900 px-4 text-base text-zinc-100 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-500/30"
-              disabled={isLoading}
-            />
-            <Button type="submit" size="lg" disabled={isLoading || !query.trim()}>
-              {isLoading ? (
-                <RotateCcw className="h-4 w-4 animate-spin" aria-hidden="true" />
-              ) : (
-                <Search className="h-4 w-4" aria-hidden="true" />
-              )}
-              Scan
-            </Button>
-          </form>
-          <div className="flex flex-wrap gap-2">
-            {DEMO_QUERIES.map((item) => (
-              <Button
-                key={item.query}
-                type="button"
-                variant="outline"
-                size="sm"
+        <header className="relative -mx-4 grid gap-4 overflow-hidden px-4 py-8 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+          <Image
+            src="/ghost-mascot-og.png"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center opacity-30"
+          />
+          <div className="absolute inset-0 bg-background/70" />
+          <div className="relative z-10 grid gap-4">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-normal text-violet-300">
+                ghost.reviews
+              </p>
+              <h1 className="mt-2 max-w-3xl text-4xl font-black tracking-normal text-zinc-50 sm:text-5xl">
+                Every product is haunted. We find the ghosts.
+              </h1>
+              <p className="mt-3 max-w-2xl text-base leading-7 text-zinc-400">
+                Paste a product name or review URL to get a Ghost Score with concrete review evidence.
+              </p>
+            </div>
+            <form
+              className="grid gap-3 rounded-lg border border-zinc-800 bg-zinc-950/75 p-3 sm:grid-cols-[1fr_auto]"
+              onSubmit={handleSubmit}
+            >
+              <label className="sr-only" htmlFor="scan-query">
+                Product name or review URL
+              </label>
+              <input
+                id="scan-query"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Product name or review URL"
+                className="h-12 min-w-0 rounded-md border border-zinc-800 bg-zinc-900 px-4 text-base text-zinc-100 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-500/30"
                 disabled={isLoading}
-                onClick={() => {
-                  setQuery(item.query);
-                  void runScan(item.query);
-                }}
-              >
-                {item.label}
+              />
+              <Button type="submit" size="lg" disabled={isLoading || !query.trim()}>
+                {isLoading ? (
+                  <RotateCcw className="h-4 w-4 animate-spin" aria-hidden="true" />
+                ) : (
+                  <Search className="h-4 w-4" aria-hidden="true" />
+                )}
+                Scan
               </Button>
-            ))}
-          </div>
-          <div className="grid gap-3 md:grid-cols-3" aria-label="How it works">
-            {HOW_IT_WORKS.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.label}
-                  className="flex min-h-[104px] items-start gap-3 rounded-lg border border-zinc-800 bg-zinc-950/55 p-4"
+            </form>
+            <div className="flex flex-wrap gap-2">
+              {DEMO_QUERIES.map((item) => (
+                <Button
+                  key={item.query}
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  disabled={isLoading}
+                  onClick={() => {
+                    setQuery(item.query);
+                    void runScan(item.query);
+                  }}
                 >
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-zinc-900 text-violet-200">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                  <div>
-                    <h2 className="text-sm font-semibold text-zinc-100">{item.label}</h2>
-                    <p className="mt-1 text-sm leading-6 text-zinc-500">{item.text}</p>
+                  {item.label}
+                </Button>
+              ))}
+            </div>
+            <div className="grid gap-3 md:grid-cols-3" aria-label="How it works">
+              {HOW_IT_WORKS.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.label}
+                    className="flex min-h-[104px] items-start gap-3 rounded-lg border border-zinc-800 bg-zinc-950/70 p-4"
+                  >
+                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-zinc-900 text-violet-200">
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <div>
+                      <h2 className="text-sm font-semibold text-zinc-100">{item.label}</h2>
+                      <p className="mt-1 text-sm leading-6 text-zinc-500">{item.text}</p>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </header>
 

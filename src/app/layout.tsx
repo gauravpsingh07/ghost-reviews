@@ -1,9 +1,31 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+
 export const metadata: Metadata = {
-  title: "ghost.reviews — find the fake reviews",
+  metadataBase: new URL(appUrl),
+  title: "ghost.reviews - find the fake reviews",
   description: "Every product is haunted. We find the ghosts.",
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
+  openGraph: {
+    title: "ghost.reviews",
+    description: "Every product is haunted. We find the ghosts.",
+    url: "/",
+    siteName: "ghost.reviews",
+    images: [{ url: "/ghost-mascot-og.png", width: 1792, height: 1024 }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ghost.reviews",
+    description: "Every product is haunted. We find the ghosts.",
+    images: ["/ghost-mascot-og.png"],
+  },
 };
 
 export default function RootLayout({
