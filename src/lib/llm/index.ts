@@ -2,3 +2,4 @@
 export * from "./config";
 export * from "./client";
 export * from "./reviewAnalysis";
+export * from "./hauntingExplanations";
