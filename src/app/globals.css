@@ -1,14 +1,29 @@
 @import "tailwindcss";
 
+/* ghost.reviews design tokens — spooky but professional (trust-tool, not Halloween). */
+@theme {
+  --color-background: #0a0a0b;
+  --color-surface: #141417;
+  --color-foreground: #ededed;
+  --color-muted: #a1a1aa;
+  --color-ghost: #a78bfa; /* violet accent */
+  --color-ghost-strong: #7c3aed;
+  --color-haunt-low: #22c55e; /* clean / authentic */
+  --color-haunt-med: #f59e0b; /* suspicious */
+  --color-haunt-high: #ef4444; /* ghost / fake */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+}
+
 :root {
-  --background: #0a0a0b;
-  --foreground: #ededed;
+  color-scheme: dark;
 }
 
 html,
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
 }
 
 * {
