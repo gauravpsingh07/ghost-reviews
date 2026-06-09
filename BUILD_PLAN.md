@@ -645,3 +645,14 @@ Phase 9 — Deploy & submission
 - [ ] 48 README finalize
 - [ ] 49 submission materials
 - [ ] 50 demo lock + smoke test
+
+---
+
+## 20. Progress log  (UPDATE AT THE END OF EVERY PHASE)
+
+> Rule: when a phase is finished, tick its boxes in §19 and append one line here, then commit + push.
+> Format: `YYYY-MM-DD — Phase N: <what shipped> — commits <first>..<last>`
+
+- 2026-06-09 — Phase 0: repo init, master build plan, tested secret-scanning pre-commit hook, free-tier ($0) docs — commits `dc242c8..ac9b6d1`
+- 2026-06-09 — Phase 1: Next.js 15.5 + React 19 + Tailwind v4 + TS scaffold, shadcn button + framer-motion + lucide, eslint 9 / prettier / vitest, folder structure, zod env + theme tokens. `npm run build` ✓, tests 2/2 ✓ — commits `f69c67f..da2ee02`
+- _(next: Phase 2 — core types + deterministic detection engine, commits 7–16)_

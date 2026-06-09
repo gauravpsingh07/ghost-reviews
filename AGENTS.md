@@ -10,7 +10,9 @@ truth: full product spec, architecture, data types, API contract, and a phased c
    §6 (API), §7 (Nimble), §8 (LLM), §10 (UI).
 3. Use the **exact commit message** from §14 for that item.
 4. Before committing: `npm run lint && npm run test`. Then commit and check the box in §19.
-5. Push after each phase (or each commit). Target ~50 commits total.
+5. **At the end of EVERY phase: tick all its boxes in §19 AND append a dated entry to the Progress
+   Log (§20) with the commit range, then commit + push.** This guarantees `BUILD_PLAN.md` always
+   reflects what's done — critical if work resumes in a new session or tool. Target ~50 commits total.
 
 ## Hard rules
 
