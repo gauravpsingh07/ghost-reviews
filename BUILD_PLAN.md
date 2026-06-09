@@ -584,7 +584,7 @@ Phase 1 — Scaffolding  ✅ (build + tests green)
 - [x] 5 folder structure (engine / nimble / llm / fixtures / types)
 - [x] 6 zod env config + theme tokens
 
-NEXT UP → Phase 4 (commits 22-27): Nimble live crawl. See §14 and §7.
+NEXT UP → Phase 5 (commits 28-30): Demo mode & fixtures. See §14 and §9.
 
 Phase 2 — Types & engine  ✅ (27 tests, build green)
 - [x] 7 core types
@@ -605,13 +605,13 @@ Phase 3 — LLM ✅ (44 tests, build green)
 - [x] 20 haunting explanations
 - [x] 21 engine integration test
 
-Phase 4 — Nimble
-- [ ] 22 nimble client
-- [ ] 23 source resolution
-- [ ] 24 extract/crawl
-- [ ] 25 normalize to Review[]
-- [ ] 26 trustpilot + amazon adapters
-- [ ] 27 parser tests
+Phase 4 — Nimble ✅ (68 tests, build green)
+- [x] 22 nimble client
+- [x] 23 source resolution
+- [x] 24 extract/crawl
+- [x] 25 normalize to Review[]
+- [x] 26 trustpilot + amazon adapters
+- [x] 27 parser tests
 
 Phase 5 — Demo mode
 - [ ] 28 fixtures
@@ -657,4 +657,5 @@ Phase 9 — Deploy & submission
 - 2026-06-09 — Phase 1: Next.js 15.5 + React 19 + Tailwind v4 + TS scaffold, shadcn button + framer-motion + lucide, eslint 9 / prettier / vitest, folder structure, zod env + theme tokens. `npm run build` ✓, tests 2/2 ✓ — commits `f69c67f..da2ee02`
 - 2026-06-09 — Phase 2: core types + deterministic detection engine — normalize/id-hash + math, 5 signals (burstiness, rating-anomaly, near-duplication, incentivized, sentiment-mismatch scaffold), Ghost Score blend + verdict tiers, per-review verdicts, hauntings aggregator, `analyzeReviews` orchestrator. 27 tests ✓, build ✓ — commits `e5f4002..bbfbf15`
 - 2026-06-09 — Phase 3: free-provider LLM config/client wrapper, batched strict-JSON review analysis prompt, AI/generic/sentiment signal integration, guarded haunting-explanation rewrites, and mocked full-engine integration coverage. 44 tests ✓, build ✓ — commits `fb11beb..261e558`
-- _(next: Phase 4 — Nimble live crawl, commits 22–27)_
+- 2026-06-09 — Phase 4: Nimble SDK API client wrapper with current `https://sdk.nimbleway.com/v1` default, query-to-review-source resolution, raw extract/crawl content helpers, raw-output-to-Review mapping, Trustpilot/Amazon adapters, and fixture payload parser coverage. 68 tests ✓, build ✓ — commits `0307dae..edfb552`
+- _(next: Phase 5 — Demo mode & fixtures, commits 28–30)_
