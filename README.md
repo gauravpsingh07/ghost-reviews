@@ -42,7 +42,7 @@ paste product ──► Nimble live crawl ──► detection engine ──► G
 ## Tech stack
 
 Next.js (App Router) · TypeScript · Tailwind CSS · shadcn/ui · Framer Motion · **Nimble** (live web) ·
-**Anthropic Claude** (review analysis) · Vercel.
+a **free-tier LLM** (Groq / Gemini) · Vercel. **Runs at $0** — free tiers + hackathon sponsor credits.
 
 ## Detection signals
 
@@ -54,7 +54,7 @@ into a weighted Ghost Score (see [`BUILD_PLAN.md`](BUILD_PLAN.md) §3).
 
 ```bash
 npm install
-cp .env.example .env.local   # add your NIMBLE_API_KEY and ANTHROPIC_API_KEY
+cp .env.example .env.local   # add NIMBLE_API_KEY + a FREE LLM key (Groq or Gemini)
 npm run dev                  # http://localhost:3000
 ```
 

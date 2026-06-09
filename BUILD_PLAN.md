@@ -18,7 +18,7 @@
 - **Deadline:** **Wednesday, June 10, 2026 @ 10:00 AM EST.** No late submissions. (This plan assumes
   an overnight build — scope is ruthless on purpose.)
 - **Stack:** Next.js (App Router, TypeScript) + Tailwind + shadcn/ui + Framer Motion, deployed on
-  Vercel. Live web data via **Nimble**. Linguistic analysis via an LLM (Claude Haiku 4.5 default).
+  Vercel. Live web data via **Nimble**. Linguistic analysis via a **free-tier LLM** (Groq or Google Gemini — no credit card). **Total cost: $0 (see §11.1).**
 - **Commit plan:** 50 commits across 10 phases (0–9). Use the exact commit messages in §14.
 - **Progress tracker:** §19 — check items off as you go.
 
@@ -185,8 +185,9 @@ stronger concept.
 **Stack (committed):**
 - Next.js 15 (App Router) + TypeScript + Tailwind CSS + shadcn/ui + Framer Motion (animations).
 - Zod for request/response validation.
-- LLM: Claude **Haiku 4.5** (`claude-haiku-4-5-20251001`) via `@anthropic-ai/sdk` — fast + cheap for
-  batched review analysis. (Swap to Sonnet 4.6 `claude-sonnet-4-6` if quality needs it.)
+- LLM (pluggable via `LLM_PROVIDER`): default **Groq** (free, no card — e.g. `llama-3.3-70b-versatile`)
+  or **Google Gemini** (free tier — `gemini-2.0-flash`). Optional: free **RunPod** sponsor credits to
+  host an open model (also enters the RunPod challenge). Anthropic/OpenAI work but are paid + optional.
 - Live web: **Nimble** (Search + Extract/Crawl). Wire the Nimble MCP server if time allows.
 - Deploy: Vercel.
 - Tests: Vitest (engine + parsers are pure functions → high-value, fast tests).
@@ -311,7 +312,7 @@ the cached fixture instantly.
 - One **batched** call per scan: send an array of review texts, get back per-review
   `{ aiLikelihood: 0–1, specificity: 0–1, sentiment: -1..1 }` as strict JSON. Chunk if > ~40 reviews.
 - A second small call (or same call) produces the human-readable haunting explanations.
-- Model: `claude-haiku-4-5-20251001` (fast/cheap). Keep prompts deterministic; request JSON only.
+- Model: a **free** provider via `LLM_PROVIDER` — Groq `llama-3.3-70b-versatile` or Gemini `gemini-2.0-flash`. Keep prompts deterministic; request JSON only.
 - **Prompt sketch:**
   > You are an expert at detecting inauthentic product reviews. For each review, return strict JSON
   > `{id, aiLikelihood, specificity, sentiment}`. `aiLikelihood`: 0=clearly human, 1=clearly AI/templated.
@@ -372,17 +373,28 @@ npm run build
 
 **Env vars (`.env.example`):**
 ```
-LLM_PROVIDER=anthropic
-ANTHROPIC_API_KEY=
-LLM_MODEL=claude-haiku-4-5-20251001
-NIMBLE_API_KEY=
-NIMBLE_BASE_URL=            # verify in Nimble docs
+LLM_PROVIDER=groq           # groq | gemini | runpod | anthropic | openai  (groq/gemini are FREE)
+LLM_MODEL=llama-3.3-70b-versatile
+GROQ_API_KEY=               # free, no card: https://console.groq.com/keys
+GEMINI_API_KEY=             # free tier: https://aistudio.google.com/apikey
+NIMBLE_API_KEY=             # free hackathon sponsor credits
+NIMBLE_BASE_URL=
 NEXT_PUBLIC_APP_URL=http://localhost:3000
-DEMO_MODE=false
+DEMO_MODE=false             # true => cached fixtures, no keys/network needed
 ```
 
 **Deploy:** `vercel` (or connect the GitHub repo in the Vercel dashboard). Set the same env vars in the
 Vercel project settings.
+
+### 11.1 Cost — everything is $0 (do not add a credit card anywhere)
+- **Nimble:** free hackathon **sponsor credits** — grab the participant key from the Devpost "Updates"
+  tab / kickoff email / sponsor Discord. (The Nimble prize even includes $500 in credits.)
+- **LLM:** **Groq** (free, no card) or **Google Gemini** free tier. Optional: free **RunPod** sponsor
+  credits to host an open model (also enters the RunPod challenge). Anthropic/OpenAI are paid + optional.
+- **Hosting:** **Vercel Hobby** (free) on a free `*.vercel.app` URL. **GitHub:** free.
+- **No domain purchase:** runs on the free Vercel subdomain; name.com may provide the real domain.
+- **Demo mode** needs **no keys at all** — build and demo entirely on bundled fixtures.
+> If any tool asks for paid billing, stop and use the free option above.
 
 ---
 
