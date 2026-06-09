@@ -584,7 +584,7 @@ Phase 1 — Scaffolding  ✅ (build + tests green)
 - [x] 5 folder structure (engine / nimble / llm / fixtures / types)
 - [x] 6 zod env config + theme tokens
 
-NEXT UP → Phase 3 (commits 17-21): LLM signals (Groq/Gemini) wired into the engine. See §14.
+NEXT UP → Phase 4 (commits 22-27): Nimble live crawl. See §14 and §7.
 
 Phase 2 — Types & engine  ✅ (27 tests, build green)
 - [x] 7 core types
@@ -598,12 +598,12 @@ Phase 2 — Types & engine  ✅ (27 tests, build green)
 - [x] 15 per-review verdict
 - [x] 16 hauntings aggregator + analyzeReviews orchestrator
 
-Phase 3 — LLM
-- [ ] 17 anthropic client
-- [ ] 18 batched analysis prompt
-- [ ] 19 integrate llm signals
-- [ ] 20 haunting explanations
-- [ ] 21 engine integration test
+Phase 3 — LLM ✅ (44 tests, build green)
+- [x] 17 anthropic client (implemented as free-provider Groq/Gemini/RunPod wrapper)
+- [x] 18 batched analysis prompt
+- [x] 19 integrate llm signals
+- [x] 20 haunting explanations
+- [x] 21 engine integration test
 
 Phase 4 — Nimble
 - [ ] 22 nimble client
@@ -656,4 +656,5 @@ Phase 9 — Deploy & submission
 - 2026-06-09 — Phase 0: repo init, master build plan, tested secret-scanning pre-commit hook, free-tier ($0) docs — commits `dc242c8..ac9b6d1`
 - 2026-06-09 — Phase 1: Next.js 15.5 + React 19 + Tailwind v4 + TS scaffold, shadcn button + framer-motion + lucide, eslint 9 / prettier / vitest, folder structure, zod env + theme tokens. `npm run build` ✓, tests 2/2 ✓ — commits `f69c67f..da2ee02`
 - 2026-06-09 — Phase 2: core types + deterministic detection engine — normalize/id-hash + math, 5 signals (burstiness, rating-anomaly, near-duplication, incentivized, sentiment-mismatch scaffold), Ghost Score blend + verdict tiers, per-review verdicts, hauntings aggregator, `analyzeReviews` orchestrator. 27 tests ✓, build ✓ — commits `e5f4002..bbfbf15`
-- _(next: Phase 3 — LLM signals via Groq/Gemini, commits 17–21)_
+- 2026-06-09 — Phase 3: free-provider LLM config/client wrapper, batched strict-JSON review analysis prompt, AI/generic/sentiment signal integration, guarded haunting-explanation rewrites, and mocked full-engine integration coverage. 44 tests ✓, build ✓ — commits `fb11beb..261e558`
+- _(next: Phase 4 — Nimble live crawl, commits 22–27)_
