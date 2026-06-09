@@ -1,8 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
-
 const size = { width: 1200, height: 630 };
 
 function cleanText(value: string | null, fallback: string): string {
@@ -67,7 +65,6 @@ export function GET(request: Request) {
         <div
           style={{
             position: "relative",
-            zIndex: 1,
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
@@ -76,8 +73,12 @@ export function GET(request: Request) {
           }}
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <div style={{ fontSize: 28, color: "#c4b5fd", fontWeight: 700 }}>ghost.reviews</div>
-            <div style={{ fontSize: 24, color: "#a1a1aa" }}>review trust report</div>
+            <div style={{ display: "flex", fontSize: 28, color: "#c4b5fd", fontWeight: 700 }}>
+              ghost.reviews
+            </div>
+            <div style={{ display: "flex", fontSize: 24, color: "#a1a1aa" }}>
+              review trust report
+            </div>
           </div>
           <div style={{ display: "flex", alignItems: "flex-end", gap: 48 }}>
             <div
@@ -93,16 +94,26 @@ export function GET(request: Request) {
                 justifyContent: "center",
               }}
             >
-              <div style={{ fontSize: 28, color: "#a1a1aa" }}>Ghost Score</div>
-              <div style={{ fontSize: 112, fontWeight: 900, lineHeight: 1, color: "#fda4af" }}>
+              <div style={{ display: "flex", fontSize: 28, color: "#a1a1aa" }}>Ghost Score</div>
+              <div
+                style={{
+                  display: "flex",
+                  fontSize: 112,
+                  fontWeight: 900,
+                  lineHeight: 1,
+                  color: "#fda4af",
+                }}
+              >
                 {score}
               </div>
-              <div style={{ fontSize: 26, color: "#a1a1aa" }}>out of 100</div>
+              <div style={{ display: "flex", fontSize: 26, color: "#a1a1aa" }}>out of 100</div>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 20, flex: 1 }}>
-              <div style={{ fontSize: 64, lineHeight: 1.05, fontWeight: 900 }}>{product}</div>
-              <div style={{ fontSize: 34, color: "#fed7aa" }}>{tier}</div>
-              <div style={{ fontSize: 26, color: "#d4d4d8" }}>
+              <div style={{ display: "flex", fontSize: 64, lineHeight: 1.05, fontWeight: 900 }}>
+                {product}
+              </div>
+              <div style={{ display: "flex", fontSize: 34, color: "#fed7aa" }}>{tier}</div>
+              <div style={{ display: "flex", fontSize: 26, color: "#d4d4d8" }}>
                 Signals suggest. Evidence shown. Verdicts are not proof of fraud.
               </div>
             </div>

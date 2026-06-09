@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { VerdictTier } from "@/types";
 import { cn } from "@/lib/utils";
 
@@ -52,6 +52,7 @@ export function GhostScoreGauge({
   label = "Ghost Score",
   className,
 }: GhostScoreGaugeProps) {
+  const reduceMotion = useReducedMotion();
   const value = clampScore(score);
   const activeTier = tier ?? tierForScore(value);
   const styles = TIER_STYLES[activeTier];
@@ -87,9 +88,9 @@ export function GhostScoreGauge({
           fill="none"
           strokeLinecap="round"
           strokeWidth="10"
-          initial={{ pathLength: 0 }}
+          initial={{ pathLength: reduceMotion ? progress : 0 }}
           animate={{ pathLength: progress }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
+          transition={{ duration: reduceMotion ? 0 : 0.9, ease: "easeOut" }}
         />
       </svg>
       <div className="relative z-10 flex min-h-[132px] flex-col items-center justify-center text-center">

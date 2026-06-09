@@ -116,10 +116,10 @@ function EmptyPrompt({ onDemoScan }: { onDemoScan: (query: string) => void }) {
     <section className="grid gap-5 rounded-lg border border-zinc-800 bg-zinc-950/60 p-6 sm:grid-cols-[1fr_auto] sm:items-center">
       <div>
         <h2 className="text-lg font-semibold text-zinc-100">No spirits summoned yet</h2>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-500">
-          Start with a bundled demo scan for an instant no-network report, or scan live when
-          credentials are configured.
-        </p>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-500">
+              Start with a bundled demo scan for an instant no-network report, or scan live when
+              credentials are configured.
+            </p>
       </div>
       <Button
         type="button"
@@ -189,7 +189,7 @@ export function ScanExperience() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-7 px-4 py-6 sm:gap-8 sm:px-6 sm:py-8 lg:px-8">
         <header className="relative -mx-4 grid gap-4 overflow-hidden px-4 py-8 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
           <Image
             src="/ghost-mascot-og.png"
