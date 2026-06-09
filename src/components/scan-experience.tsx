@@ -107,14 +107,52 @@ function ResultsComposition({ result }: { result: ScanResult }) {
   );
 }
 
-function EmptyPrompt() {
+function EmptyPrompt({ onDemoScan }: { onDemoScan: (query: string) => void }) {
   return (
-    <section className="rounded-lg border border-zinc-800 bg-zinc-950/60 p-6">
-      <h2 className="text-lg font-semibold text-zinc-100">Ready to scan</h2>
-      <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-500">
-        Try a demo query for an instant no-network report, or paste a product name or review URL for
-        a live scan when Nimble credentials are configured.
-      </p>
+    <section className="grid gap-5 rounded-lg border border-zinc-800 bg-zinc-950/60 p-6 sm:grid-cols-[1fr_auto] sm:items-center">
+      <div>
+        <h2 className="text-lg font-semibold text-zinc-100">No spirits summoned yet</h2>
+        <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-500">
+          Start with a bundled demo scan for an instant no-network report, or scan live when
+          credentials are configured.
+        </p>
+      </div>
+      <Button
+        type="button"
+        variant="outline"
+        className="w-full sm:w-auto"
+        onClick={() => onDemoScan(DEMO_QUERIES[0].query)}
+      >
+        <Search className="h-4 w-4" aria-hidden="true" />
+        Run demo
+      </Button>
+    </section>
+  );
+}
+
+function ScanErrorState({
+  message,
+  onRetry,
+}: {
+  message: string;
+  onRetry: () => void;
+}) {
+  return (
+    <section
+      className="flex flex-col gap-4 rounded-lg border border-red-400/25 bg-red-950/25 p-4 text-sm text-red-100 sm:flex-row sm:items-start sm:justify-between"
+      role="alert"
+    >
+      <div className="flex min-w-0 items-start gap-3">
+        <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+        <div>
+          <h2 className="font-semibold">The connection to the other side was lost</h2>
+          <p className="mt-1 leading-6 text-red-100/75">{message}</p>
+        </div>
+      </div>
+      <Button type="button" variant="outline" size="sm" className="w-full sm:w-auto" onClick={onRetry}>
+        <RotateCcw className="h-4 w-4" aria-hidden="true" />
+        Retry
+      </Button>
     </section>
   );
 }
@@ -185,7 +223,12 @@ export function ScanExperience() {
                 className="h-12 min-w-0 rounded-md border border-zinc-800 bg-zinc-900 px-4 text-base text-zinc-100 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-500/30"
                 disabled={isLoading}
               />
-              <Button type="submit" size="lg" disabled={isLoading || !query.trim()}>
+              <Button
+                type="submit"
+                size="lg"
+                className="w-full sm:w-auto"
+                disabled={isLoading || !query.trim()}
+              >
                 {isLoading ? (
                   <RotateCcw className="h-4 w-4 animate-spin" aria-hidden="true" />
                 ) : (
@@ -194,13 +237,14 @@ export function ScanExperience() {
                 Scan
               </Button>
             </form>
-            <div className="flex flex-wrap gap-2">
+            <div className="grid gap-2 sm:flex sm:flex-wrap">
               {DEMO_QUERIES.map((item) => (
                 <Button
                   key={item.query}
                   type="button"
                   variant="outline"
                   size="sm"
+                  className="justify-start sm:justify-center"
                   disabled={isLoading}
                   onClick={() => {
                     setQuery(item.query);
@@ -233,14 +277,20 @@ export function ScanExperience() {
           </div>
         </header>
 
-        {error ? (
-          <div className="flex items-start gap-3 rounded-lg border border-red-400/25 bg-red-950/25 p-4 text-sm text-red-100">
-            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-            <p>{error}</p>
-          </div>
-        ) : null}
+        {error ? <ScanErrorState message={error} onRetry={() => void runScan(query)} /> : null}
 
-        {isLoading ? <ScanLoadingState /> : result ? <ResultsComposition result={result} /> : <EmptyPrompt />}
+        {isLoading ? (
+          <ScanLoadingState />
+        ) : result ? (
+          <ResultsComposition result={result} />
+        ) : (
+          <EmptyPrompt
+            onDemoScan={(nextQuery) => {
+              setQuery(nextQuery);
+              void runScan(nextQuery);
+            }}
+          />
+        )}
       </div>
     </main>
   );
