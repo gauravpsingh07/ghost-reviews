@@ -1,7 +1,7 @@
 "use client";
 
 import { type FormEvent, useState } from "react";
-import { AlertCircle, RotateCcw, Search } from "lucide-react";
+import { AlertCircle, Radar, RotateCcw, Search, ShieldCheck } from "lucide-react";
 import type { ScanResult } from "@/types";
 import { Button } from "@/components/ui/button";
 import { DuplicateEvidenceView } from "@/components/results/duplicate-evidence-view";
@@ -16,6 +16,24 @@ const DEMO_QUERIES = [
   { label: "Haunted charger", query: "ghostcase power snap" },
   { label: "Clean kettle", query: "cozybrew kettle" },
   { label: "Incentivized band", query: "glowfit pulse band" },
+];
+
+const HOW_IT_WORKS = [
+  {
+    label: "Crawl",
+    text: "Find live review pages for the product or URL.",
+    icon: Search,
+  },
+  {
+    label: "Score",
+    text: "Blend timing, duplication, ratings, language, and incentive signals.",
+    icon: Radar,
+  },
+  {
+    label: "Explain",
+    text: "Show the evidence behind each haunting and per-review verdict.",
+    icon: ShieldCheck,
+  },
 ];
 
 async function requestScan(query: string): Promise<ScanResult> {
@@ -137,6 +155,9 @@ export function ScanExperience() {
             <h1 className="mt-2 max-w-3xl text-4xl font-black tracking-normal text-zinc-50 sm:text-5xl">
               Every product is haunted. We find the ghosts.
             </h1>
+            <p className="mt-3 max-w-2xl text-base leading-7 text-zinc-400">
+              Paste a product name or review URL to get a Ghost Score with concrete review evidence.
+            </p>
           </div>
           <form
             className="grid gap-3 rounded-lg border border-zinc-800 bg-zinc-950/70 p-3 sm:grid-cols-[1fr_auto]"
@@ -178,6 +199,25 @@ export function ScanExperience() {
                 {item.label}
               </Button>
             ))}
+          </div>
+          <div className="grid gap-3 md:grid-cols-3" aria-label="How it works">
+            {HOW_IT_WORKS.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.label}
+                  className="flex min-h-[104px] items-start gap-3 rounded-lg border border-zinc-800 bg-zinc-950/55 p-4"
+                >
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-zinc-900 text-violet-200">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <div>
+                    <h2 className="text-sm font-semibold text-zinc-100">{item.label}</h2>
+                    <p className="mt-1 text-sm leading-6 text-zinc-500">{item.text}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </header>
 
