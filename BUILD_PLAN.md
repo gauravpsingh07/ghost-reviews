@@ -572,15 +572,19 @@ in 2024, and AI made them infinitely cheap to produce. We're the detector — an
 
 ## 19. Progress tracker
 
-Phase 0 — Repo & docs
-- [ ] 1 docs: master build plan + repo init
+Phase 0 — Repo & docs  ✅
+- [x] 1 docs: master build plan + repo init
+- [x] (extra) chore: secret-scanning pre-commit hook + hardened gitignore (tested)
+- [x] (extra) docs: switch to free-tier LLM providers + $0 cost path
 
-Phase 1 — Scaffolding
-- [ ] 2 next.js scaffold
-- [ ] 3 shadcn/ui + framer-motion
-- [ ] 4 eslint/prettier/vitest
-- [ ] 5 folder structure
-- [ ] 6 env config + theme tokens
+Phase 1 — Scaffolding  ✅ (build + tests green)
+- [x] 2 next.js scaffold — Next 15.5 + React 19 + Tailwind v4 + TS (Next 16 preview was broken)
+- [x] 3 shadcn/ui button + framer-motion + lucide + cn()
+- [x] 4 eslint 9 + prettier + vitest (cn() test passing)
+- [x] 5 folder structure (engine / nimble / llm / fixtures / types)
+- [x] 6 zod env config + theme tokens
+
+NEXT UP → Phase 2 (commits 7-16): core types + deterministic detection engine. See §14.
 
 Phase 2 — Types & engine
 - [ ] 7 core types
