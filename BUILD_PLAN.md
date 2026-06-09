@@ -584,7 +584,7 @@ Phase 1 — Scaffolding  ✅ (build + tests green)
 - [x] 5 folder structure (engine / nimble / llm / fixtures / types)
 - [x] 6 zod env config + theme tokens
 
-NEXT UP → Phase 8 (commits 42-46): Landing & brand polish. See §14 and §10.
+NEXT UP → Phase 9 (commits 47-50): Deploy & submission. See §14 and §15.
 
 Phase 2 — Types & engine  ✅ (27 tests, build green)
 - [x] 7 core types
@@ -633,12 +633,12 @@ Phase 7 — UI ✅ (85 tests, build green)
 - [x] 40 loading state
 - [x] 41 results page + form wiring
 
-Phase 8 — Brand polish
-- [ ] 42 landing hero
-- [ ] 43 mascot/theme/favicon/OG
-- [ ] 44 empty/error + mobile
-- [ ] 45 share button + OG card
-- [ ] 46 microcopy/animation polish
+Phase 8 — Brand polish ✅ (85 tests, build green)
+- [x] 42 landing hero
+- [x] 43 mascot/theme/favicon/OG
+- [x] 44 empty/error + mobile
+- [x] 45 share button + OG card
+- [x] 46 microcopy/animation polish
 
 Phase 9 — Deploy & submission
 - [ ] 47 vercel deploy
@@ -661,4 +661,5 @@ Phase 9 — Deploy & submission
 - 2026-06-09 — Phase 5: three cached demo ScanResult fixtures, env/query-match demo loader with no-network fallback, and snapshot coverage over fixture scores, signals, hauntings, and per-review verdicts. 76 tests ✓, build ✓ — commits `64f5a27..7a994a0`
 - 2026-06-09 — Phase 6: POST `/api/scan` orchestration with demo-first no-network path, live Nimble/engine/LLM path, Zod request validation, typed error responses, response cache, and basic rate-limit guard. 85 tests ✓, build ✓ — commits `bc60950..8a735fd`
 - 2026-06-09 — Phase 7: animated Ghost Score gauge, verdict banner, hauntings cards, signal meters, filtered review cards, duplicate-evidence view, themed loading state, and a wired scan experience posting to `/api/scan`. 85 tests ✓, build ✓; local `localhost:3020` page/API smoke ✓ — commits `eccf0a7..1f385e3`
-- _(next: Phase 8 — Landing & brand polish, commits 42–46)_
+- 2026-06-09 — Phase 8: landing/tool hero + how-it-works strip, generated ghost mascot, favicon, OG metadata, themed empty/error/mobile pass, share-this-haunting button + generated share card, and microcopy/spacing/reduced-motion polish. 85 tests ✓, build ✓; local `localhost:3020` page/API/share-card smoke ✓ — commits `c69a1d1..730569c`
+- _(next: Phase 9 — Deploy & submission, commits 47–50)_
