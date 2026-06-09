@@ -584,7 +584,7 @@ Phase 1 — Scaffolding  ✅ (build + tests green)
 - [x] 5 folder structure (engine / nimble / llm / fixtures / types)
 - [x] 6 zod env config + theme tokens
 
-NEXT UP → Phase 9 (commits 47-50): Deploy & submission. See §14 and §15.
+NEXT UP → Final Devpost submission, or optional Phase 10 stretch only if there is time.
 
 Phase 2 — Types & engine  ✅ (27 tests, build green)
 - [x] 7 core types
@@ -640,11 +640,11 @@ Phase 8 — Brand polish ✅ (85 tests, build green)
 - [x] 45 share button + OG card
 - [x] 46 microcopy/animation polish
 
-Phase 9 — Deploy & submission
-- [ ] 47 vercel deploy
-- [ ] 48 README finalize
-- [ ] 49 submission materials
-- [ ] 50 demo lock + smoke test
+Phase 9 — Deploy & submission ✅ (89 tests, build + local production smoke green; Vercel auth needed for live deploy)
+- [x] 47 vercel deploy config + env setup
+- [x] 48 README finalize
+- [x] 49 submission materials
+- [x] 50 demo lock + smoke test
 
 ---
 
@@ -662,4 +662,5 @@ Phase 9 — Deploy & submission
 - 2026-06-09 — Phase 6: POST `/api/scan` orchestration with demo-first no-network path, live Nimble/engine/LLM path, Zod request validation, typed error responses, response cache, and basic rate-limit guard. 85 tests ✓, build ✓ — commits `bc60950..8a735fd`
 - 2026-06-09 — Phase 7: animated Ghost Score gauge, verdict banner, hauntings cards, signal meters, filtered review cards, duplicate-evidence view, themed loading state, and a wired scan experience posting to `/api/scan`. 85 tests ✓, build ✓; local `localhost:3020` page/API smoke ✓ — commits `eccf0a7..1f385e3`
 - 2026-06-09 — Phase 8: landing/tool hero + how-it-works strip, generated ghost mascot, favicon, OG metadata, themed empty/error/mobile pass, share-this-haunting button + generated share card, and microcopy/spacing/reduced-motion polish. 85 tests ✓, build ✓; local `localhost:3020` page/API/share-card smoke ✓ — commits `c69a1d1..730569c`
-- _(next: Phase 9 — Deploy & submission, commits 47–50)_
+- 2026-06-09 — Phase 9: Vercel config/env setup, README with screenshots, submission copy/video script, demo-mode lock, final env validator, and local production smoke script. 89 tests ✓, build ✓, final env check ✓, local production smoke ✓; Vercel CLI deploy still requires a noninteractive auth token or logged-in session — commits `5dc2b58..7ffb07a`
+- _(next: final Devpost submission, or optional Phase 10 stretch only if there is time)_
