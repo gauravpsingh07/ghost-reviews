@@ -660,6 +660,10 @@ Phase 9 — Deploy & submission ✅ (89 tests, build + local production smoke gr
 > surfacing a parse error, (3) removed unused import (lint warning). REMAINING USER ACTIONS: deploy
 > to Vercel + paste live URL into README/submission docs, record demo video, submit on Devpost
 > before June 10, 10:00 AM EST.
+>
+> 2026-06-09 — Fix (Claude): "Share this haunting" now opens the generated OG card in a new tab on
+> desktop (the old silent clipboard-only path failed quietly); native share kept for touch devices.
+> Verified the click opens `/api/share-card`. Build + lint + 89 tests green.
 
 - 2026-06-09 — Phase 0: repo init, master build plan, tested secret-scanning pre-commit hook, free-tier ($0) docs — commits `dc242c8..ac9b6d1`
 - 2026-06-09 — Phase 1: Next.js 15.5 + React 19 + Tailwind v4 + TS scaffold, shadcn button + framer-motion + lucide, eslint 9 / prettier / vitest, folder structure, zod env + theme tokens. `npm run build` ✓, tests 2/2 ✓ — commits `f69c67f..da2ee02`
