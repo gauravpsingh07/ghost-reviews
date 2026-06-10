@@ -17,9 +17,9 @@ function normalizeQuery(query: string): string {
 }
 
 function fixtureTerms(fixture: DemoScanFixture): string[] {
-  return [fixture.key, fixture.result.product.name, fixture.result.product.url ?? "", ...fixture.queries].map(
-    normalizeQuery,
-  );
+  return [fixture.key, fixture.result.product.name, fixture.result.product.url ?? "", ...fixture.queries]
+    .map(normalizeQuery)
+    .filter((term) => term.length > 0); // an empty term would match every query via includes("")
 }
 
 function cloneScanResult(result: ScanResult): ScanResult {

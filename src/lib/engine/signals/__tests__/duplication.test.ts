@@ -1,6 +1,5 @@
 import { describe, it, expect } from "vitest";
 import { duplication } from "@/lib/engine/signals/duplication";
-import type { Review } from "@/types";
 
 const base = { rating: 5, date: new Date().toISOString(), source: "amazon" as const };
 

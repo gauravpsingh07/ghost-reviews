@@ -44,11 +44,17 @@ async function requestScan(query: string): Promise<ScanResult> {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ query }),
   });
-  const payload = (await response.json()) as ScanResult | { error?: { message?: string } };
+  const payload = (await response.json().catch(() => null)) as
+    | ScanResult
+    | { error?: { message?: string } }
+    | null;
 
   if (!response.ok) {
-    const message = "error" in payload ? payload.error?.message : undefined;
+    const message = payload && "error" in payload ? payload.error?.message : undefined;
     throw new Error(message ?? "The scan failed. Try a demo query or retry shortly.");
+  }
+  if (!payload) {
+    throw new Error("The scan returned an unreadable response. Retry shortly.");
   }
 
   return payload as ScanResult;
