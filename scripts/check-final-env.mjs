@@ -35,6 +35,10 @@ assert(
   vercelEnv.NIMBLE_BASE_URL === "https://sdk.nimbleway.com/v1",
   "vercel.json must point at the Nimble SDK API base URL.",
 );
+assert(
+  vercelEnv.NEXT_PUBLIC_APP_URL === "https://ghost-reviews-nb3a.vercel.app",
+  "vercel.json must point metadata and share URLs at the live hosted demo.",
+);
 
 for (const [key, value] of template.entries()) {
   if (/_API_KEY$/.test(key)) {

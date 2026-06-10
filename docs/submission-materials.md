@@ -8,7 +8,7 @@ Use this as the copy source for Devpost, the demo video, and the final pitch.
 - Tagline: Every product is haunted. We find the ghosts.
 - Challenges: name.com Domain Roulette, Nimble live web
 - Public repo: `https://github.com/gauravpsingh07/ghost-reviews`
-- Live link: add final Vercel/custom-domain URL after production deploy
+- Live link: `https://ghost-reviews-nb3a.vercel.app`
 - Deadline: June 10, 2026 at 10:00 AM EST
 
 ## Elevator Pitch
@@ -26,6 +26,8 @@ Fake reviews are everywhere, and generative AI made them cheap to produce at sca
 ghost.reviews turns the domain into the product: the "ghosts" are ghostwritten or synthetic reviews. The app crawls review pages with Nimble, normalizes the findings, and scores them with a hybrid engine that looks for burst timing, duplicated text, rating anomalies, incentivized language, generic writing, AI-like phrasing, and sentiment-rating mismatch.
 
 The output is intentionally transparent. Instead of saying "trust us," it shows the Ghost Score, the signal breakdown, the hauntings that drove the score, duplicate evidence side by side, and per-review reasons. Demo mode is locked to bundled fixtures so the presentation does not depend on network calls or paid APIs.
+
+The hosted demo accepts the three bundled example products for full reports. Unmatched searches show a clean sample-data notice instead of returning unrelated fallback data.
 
 ## What Makes It Useful
 
@@ -56,6 +58,8 @@ Use these in order for a clean recording:
 2. `cozybrew kettle` - cleaner baseline.
 3. `glowfit pulse band` - incentivized/generic review pattern.
 
+Do not type an arbitrary product during the recorded demo unless you intentionally want to show the guardrail message: "This hosted demo runs on bundled sample data. Try one of the example products above for a full report."
+
 ## Demo Flow
 
 1. Open the app on the landing page.
@@ -82,7 +86,7 @@ Show the landing page and the input.
 
 ### 0:35-0:55 - What It Does
 
-"Paste a product name or review URL. ghost.reviews crawls review sources, analyzes the text and timing patterns, and returns a Ghost Score with evidence."
+"Paste a product name or review URL. The production demo uses bundled sample data for reliability, while the app architecture supports Nimble-powered live review crawl and extraction. It analyzes the text and timing patterns, then returns a Ghost Score with evidence."
 
 Run `ghostcase power snap`.
 
@@ -100,7 +104,7 @@ Show duplicate evidence and review cards.
 
 ### 2:05-2:25 - How It Works
 
-"Under the hood, Nimble handles live-web search, crawl, and extraction. The detection engine is pure TypeScript and unit-tested. Demo mode uses cached fixtures, so the presentation is reliable even without network calls."
+"Under the hood, Nimble handles the live-web search, crawl, and extraction path. The detection engine is pure TypeScript and unit-tested. For judging, demo mode uses cached fixtures so the presentation is reliable even without network calls, and unmatched searches show a clear sample-data notice instead of wrong results."
 
 ### 2:25-2:45 - Close
 
@@ -118,7 +122,7 @@ ghost.reviews analyzes product reviews and returns an explainable Ghost Score. I
 
 ### How We Built It
 
-The app uses Next.js, TypeScript, and Tailwind for the interface. `POST /api/scan` orchestrates demo fixtures or live Nimble crawling, normalizes reviews, runs the pure detection engine, optionally enriches language signals with a free LLM provider, and returns a typed `ScanResult`. Results are rendered as a gauge, verdict banner, hauntings, signal meters, duplicate evidence, review cards, and a generated share image.
+The app uses Next.js, TypeScript, and Tailwind for the interface. `POST /api/scan` orchestrates bundled demo fixtures or live Nimble crawling, normalizes reviews, runs the pure detection engine, optionally enriches language signals with a free LLM provider, and returns a typed `ScanResult`. Results are rendered as a gauge, verdict banner, hauntings, signal meters, duplicate evidence, review cards, and a generated share image.
 
 ### Challenges
 
@@ -152,11 +156,10 @@ For trust tooling, presentation matters as much as detection. A score is only us
 
 ## Final Submission Checklist
 
-- Add final live URL.
+- Live URL added: `https://ghost-reviews-nb3a.vercel.app`.
 - Confirm public repo URL.
 - Confirm `DEMO_MODE=true` in production if live credentials are not configured.
 - Upload screenshots.
 - Upload 2-3 minute video.
 - Select name.com Domain Roulette and Nimble challenges.
 - Submit before June 10, 2026 at 10:00 AM EST.
-

@@ -1,4 +1,6 @@
 const baseUrl = (process.env.SMOKE_BASE_URL ?? "http://localhost:3000").replace(/\/+$/, "");
+const demoOnlyMessage =
+  "This hosted demo runs on bundled sample data. Try one of the example products above for a full report.";
 
 async function assertOk(condition, message) {
   if (!condition) throw new Error(message);
@@ -29,6 +31,16 @@ await assertOk(result.demoMode === true, "scan result must be in demo mode");
 await assertOk(result.product?.name === "GhostCase Power Snap", "scan result returned the wrong product");
 await assertOk(Number.isInteger(result.ghostScore), "scan result missing integer ghostScore");
 await assertOk(Array.isArray(result.hauntings) && result.hauntings.length > 0, "scan result missing hauntings");
+
+const unmatched = await fetch(`${baseUrl}/api/scan`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ query: "random unmatched judge query" }),
+});
+await assertOk(unmatched.status === 422, `unmatched demo query should return 422, got ${unmatched.status}`);
+const unmatchedBody = await readJson(unmatched);
+await assertOk(unmatchedBody.error?.code === "DEMO_ONLY", "unmatched demo query must return DEMO_ONLY");
+await assertOk(unmatchedBody.error?.message === demoOnlyMessage, "unmatched demo query returned the wrong message");
 
 const card = await fetch(
   `${baseUrl}/api/share-card?product=GhostCase%20Power%20Snap&score=${result.ghostScore}&tier=${result.verdict.tier}`,

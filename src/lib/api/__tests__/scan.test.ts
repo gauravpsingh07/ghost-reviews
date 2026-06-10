@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { parseScanRequestBody, scanErrorResponse } from "@/lib/api/scan";
-import { ScanError } from "@/lib/scan";
+import { DEMO_ONLY_MESSAGE, ScanError } from "@/lib/scan";
 import { NimbleUnavailableError } from "@/lib/nimble";
 
 describe("parseScanRequestBody", () => {
@@ -36,6 +36,13 @@ describe("scanErrorResponse", () => {
     expect(scanErrorResponse(new ScanError("NO_REVIEWS", "No reviews found."))).toEqual({
       status: 404,
       body: { error: { code: "NO_REVIEWS", message: "No reviews found." } },
+    });
+  });
+
+  it("maps hosted-demo-only queries to a friendly 422", () => {
+    expect(scanErrorResponse(new ScanError("DEMO_ONLY", DEMO_ONLY_MESSAGE))).toEqual({
+      status: 422,
+      body: { error: { code: "DEMO_ONLY", message: DEMO_ONLY_MESSAGE } },
     });
   });
 

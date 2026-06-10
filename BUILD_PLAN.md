@@ -674,6 +674,11 @@ Phase 9 — Deploy & submission ✅ (89 tests, build + local production smoke gr
 > Recommendation: deploy with DEMO_MODE=true (polished + reliable); demo it on the built-in fixtures.
 > Note: the Gemini key provided was the wrong type (not `AIza…`, free-tier limit 0) — LLM is optional
 > (deterministic signals carry 55% of the score without it).
+>
+> 2026-06-10 — Hosted demo hardening (Codex): live deployment is
+> `https://ghost-reviews-nb3a.vercel.app`. Unmatched hosted-demo queries now return a clear
+> `DEMO_ONLY` notice instead of silently falling back to unrelated sample data; bundled example
+> products still return instant full reports. README/submission materials updated for judges.
 
 - 2026-06-09 — Phase 0: repo init, master build plan, tested secret-scanning pre-commit hook, free-tier ($0) docs — commits `dc242c8..ac9b6d1`
 - 2026-06-09 — Phase 1: Next.js 15.5 + React 19 + Tailwind v4 + TS scaffold, shadcn button + framer-motion + lucide, eslint 9 / prettier / vitest, folder structure, zod env + theme tokens. `npm run build` ✓, tests 2/2 ✓ — commits `f69c67f..da2ee02`

@@ -14,6 +14,7 @@ export type ScanRequestBody = z.infer<typeof scanRequestSchema>;
 export type ApiErrorCode =
   | "BAD_REQUEST"
   | "NO_REVIEWS"
+  | "DEMO_ONLY"
   | "UPSTREAM_ERROR"
   | "RATE_LIMITED"
   | "INTERNAL_ERROR";
@@ -51,6 +52,13 @@ export function scanErrorResponse(error: unknown): { status: number; body: ApiEr
     return {
       status: 404,
       body: { error: { code: "NO_REVIEWS", message: error.message } },
+    };
+  }
+
+  if (error instanceof ScanError && error.code === "DEMO_ONLY") {
+    return {
+      status: 422,
+      body: { error: { code: "DEMO_ONLY", message: error.message } },
     };
   }
 

@@ -6,11 +6,26 @@ ghost.reviews detects suspicious, fake, or ghostwritten product reviews by crawl
 
 ## Live Demo
 
-- Production target: `https://ghost.reviews`
-- Vercel fallback URL: add after the final production deploy in Phase 9.
-- Local demo: run `DEMO_MODE=true npm run dev`, then scan `ghostcase power snap`.
+- Live app: https://ghost-reviews-nb3a.vercel.app
+- Public repo: https://github.com/gauravpsingh07/ghost-reviews
+- Best demo query: `ghostcase power snap`
 
-The app is designed to run safely without paid APIs. Demo mode and fixture-matching queries return cached results with no network calls.
+The hosted demo is intentionally locked to bundled sample data so judges always get a complete report with no network flakiness or paid API dependency. Use the three example buttons in the app:
+
+- `ghostcase power snap` - haunted charger with the strongest evidence.
+- `cozybrew kettle` - cleaner baseline product.
+- `glowfit pulse band` - incentivized/generic review pattern.
+
+If a visitor searches an unmatched product, the app shows: "This hosted demo runs on bundled sample data. Try one of the example products above for a full report." It never returns the wrong sample for an arbitrary query.
+
+## Judge Quick Read
+
+- Domain fit: `ghost.reviews` turns "ghost" into ghostwritten/fake reviews.
+- Core experience: paste a product, get a Ghost Score, then inspect the evidence.
+- Differentiator: evidence-first UI, not a black-box accusation.
+- Nimble story: live-web search/extract/crawl integration is implemented behind adapters; the submitted demo uses fixtures for reliability.
+- Free stack: no paid APIs required; Vercel + Nimble sponsor credits + optional free LLM providers.
+- Verification: lint, tests, build, env guard, and production smoke script are included.
 
 ## Screenshots
 
@@ -35,7 +50,7 @@ Ghost Scores are evidence-backed signals, not legal conclusions or proof of frau
 ```text
 Next.js UI
   -> POST /api/scan
-    -> demo fixture loader (no network when enabled or matched)
+    -> demo fixture loader (no network for bundled examples)
     -> Nimble source resolution + extract/crawl adapters
     -> normalized Review[]
     -> pure detection engine
@@ -117,7 +132,7 @@ The Nimble layer is isolated behind `src/lib/nimble`:
 - `reviews.ts` maps raw payloads into normalized reviews.
 - `adapters.ts` keeps source-specific Trustpilot and Amazon parsing behind a common interface.
 
-If `NIMBLE_API_KEY` is missing, live crawling is disabled and the API falls back to demo fixtures when `DEMO_MODE=true` or the query matches a bundled fixture.
+In production, `DEMO_MODE=true` keeps the public demo reliable: fixture-matching queries return full reports, and unmatched queries receive a friendly sample-data notice instead of an unrelated fallback result. With `DEMO_MODE=false` and `NIMBLE_API_KEY` configured, the same API can attempt live crawling through the Nimble adapters.
 
 ## Free Stack
 
@@ -174,10 +189,10 @@ App settings:
 
 ```text
 NEXT_PUBLIC_APP_URL=http://localhost:3000
-DEMO_MODE=false
+DEMO_MODE=true
 ```
 
-Vercel automatically supplies preview deployment URLs. Set `NEXT_PUBLIC_APP_URL` after the final production deploy if you want canonical Open Graph URLs to use the custom domain.
+The deployed Vercel app pins `NEXT_PUBLIC_APP_URL=https://ghost-reviews-nb3a.vercel.app` in `vercel.json` so metadata and share-card URLs point at the live hosted demo.
 
 ## Verification
 
@@ -187,7 +202,7 @@ npm test
 npm run build
 ```
 
-Current status: 89 tests passing and production build green.
+Current status: 92 tests passing, lint clean, final env guard green, local production smoke green, and production build green.
 
 ## Deployment
 
@@ -203,12 +218,13 @@ Noninteractive CLI deploy requires Vercel authentication:
 npx vercel@54.10.3 deploy --prod
 ```
 
-After the first production deploy, set:
+Production deploy is currently hosted at:
 
 ```text
-NEXT_PUBLIC_APP_URL=https://ghost.reviews
-DEMO_MODE=true
+https://ghost-reviews-nb3a.vercel.app
 ```
+
+The Vercel config keeps `DEMO_MODE=true` for judge-safe sample reports.
 
 ## Secret Safety
 

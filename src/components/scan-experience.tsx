@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { type FormEvent, useState } from "react";
-import { AlertCircle, Radar, RotateCcw, Search, ShieldCheck } from "lucide-react";
+import { AlertCircle, Radar, RotateCcw, Search, Sparkles, ShieldCheck } from "lucide-react";
 import type { ScanResult } from "@/types";
 import { Button } from "@/components/ui/button";
 import { DuplicateEvidenceView } from "@/components/results/duplicate-evidence-view";
@@ -46,12 +46,14 @@ async function requestScan(query: string): Promise<ScanResult> {
   });
   const payload = (await response.json().catch(() => null)) as
     | ScanResult
-    | { error?: { message?: string } }
+    | { error?: { code?: string; message?: string } }
     | null;
 
   if (!response.ok) {
-    const message = payload && "error" in payload ? payload.error?.message : undefined;
-    throw new Error(message ?? "The scan failed. Try a demo query or retry shortly.");
+    const errorBody = payload && "error" in payload ? payload.error : undefined;
+    const err = new Error(errorBody?.message ?? "The scan failed. Try a demo query or retry shortly.");
+    (err as Error & { code?: string }).code = errorBody?.code;
+    throw err;
   }
   if (!payload) {
     throw new Error("The scan returned an unreadable response. Retry shortly.");
@@ -140,6 +142,39 @@ function EmptyPrompt({ onDemoScan }: { onDemoScan: (query: string) => void }) {
   );
 }
 
+function DemoNotice({
+  message,
+  onDemoScan,
+}: {
+  message: string;
+  onDemoScan: (query: string) => void;
+}) {
+  return (
+    <section className="grid gap-4 rounded-lg border border-violet-500/25 bg-violet-950/15 p-6">
+      <div className="flex items-start gap-3">
+        <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-violet-300" aria-hidden="true" />
+        <div>
+          <h2 className="text-base font-semibold text-zinc-100">Live demo — sample data</h2>
+          <p className="mt-1 max-w-2xl text-sm leading-6 text-zinc-400">{message}</p>
+        </div>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {DEMO_QUERIES.map((item) => (
+          <Button
+            key={item.query}
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => onDemoScan(item.query)}
+          >
+            {item.label}
+          </Button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function ScanErrorState({
   message,
   onRetry,
@@ -171,18 +206,28 @@ export function ScanExperience() {
   const [query, setQuery] = useState("ghostcase power snap");
   const [result, setResult] = useState<ScanResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   async function runScan(nextQuery: string): Promise<void> {
     const trimmed = nextQuery.trim();
     if (!trimmed) return;
     setError(null);
+    setNotice(null);
+    setResult(null);
     setIsLoading(true);
     try {
       const scan = await requestScan(trimmed);
       setResult(scan);
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "The scan failed.");
+      const code = (caught as { code?: string }).code;
+      const message = caught instanceof Error ? caught.message : "The scan failed.";
+      if (code === "DEMO_ONLY") {
+        setNotice(message);
+        setResult(null);
+      } else {
+        setError(message);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -293,6 +338,14 @@ export function ScanExperience() {
           <ScanLoadingState />
         ) : result ? (
           <ResultsComposition result={result} />
+        ) : notice ? (
+          <DemoNotice
+            message={notice}
+            onDemoScan={(nextQuery) => {
+              setQuery(nextQuery);
+              void runScan(nextQuery);
+            }}
+          />
         ) : (
           <EmptyPrompt
             onDemoScan={(nextQuery) => {

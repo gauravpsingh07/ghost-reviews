@@ -6,7 +6,8 @@
     "DEMO_MODE": "true",
     "LLM_PROVIDER": "groq",
     "LLM_MODEL": "llama-3.3-70b-versatile",
-    "NIMBLE_BASE_URL": "https://sdk.nimbleway.com/v1"
+    "NIMBLE_BASE_URL": "https://sdk.nimbleway.com/v1",
+    "NEXT_PUBLIC_APP_URL": "https://ghost-reviews-nb3a.vercel.app"
   },
   "regions": ["iad1"]
 }

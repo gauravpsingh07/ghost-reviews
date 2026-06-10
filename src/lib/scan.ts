@@ -8,6 +8,10 @@ import {
   resolveReviewSources,
 } from "@/lib/nimble";
 import { analyzeReviewsWithLlm, generateHauntingExplanations } from "@/lib/llm";
+import { env } from "@/lib/env";
+
+export const DEMO_ONLY_MESSAGE =
+  "This hosted demo runs on bundled sample data. Try one of the example products above for a full report.";
 
 export interface ScanProductInput {
   query: string;
@@ -16,7 +20,7 @@ export interface ScanProductInput {
 
 export class ScanError extends Error {
   constructor(
-    readonly code: "NO_REVIEWS",
+    readonly code: "NO_REVIEWS" | "DEMO_ONLY",
     message: string,
   ) {
     super(message);
@@ -26,8 +30,15 @@ export class ScanError extends Error {
 
 export async function scanProduct(input: ScanProductInput): Promise<ScanResult> {
   const { query } = input;
-  const demo = loadDemoScanResult(query);
+  // Only return a fixture when the query actually matches one (no silent fallback).
+  const demo = loadDemoScanResult(query, { forceDemoMode: false });
   if (demo) return demo;
+
+  // Hosted demo: don't live-crawl arbitrary queries — guide the user to the example products
+  // instead of returning an unrelated sample.
+  if (env.DEMO_MODE) {
+    throw new ScanError("DEMO_ONLY", DEMO_ONLY_MESSAGE);
+  }
 
   const sources = await resolveReviewSources(query);
   const candidates =
