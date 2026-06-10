@@ -78,7 +78,6 @@ describe("resolveReviewSources", () => {
 
     expect(search).toHaveBeenCalledWith({
       query: "Demo Product reviews customer ratings Trustpilot Amazon",
-      focus: "web",
       max_results: 10,
     });
     expect(candidates).toEqual([

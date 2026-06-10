@@ -1,4 +1,4 @@
-import type { ScanResult, SourceId } from "@/types";
+import type { Review, ScanResult, SourceId } from "@/types";
 import { analyzeReviews } from "@/lib/engine";
 import { loadDemoScanResult } from "@/lib/fixtures";
 import {
@@ -24,34 +24,43 @@ export class ScanError extends Error {
   }
 }
 
-function chooseSource(
-  sources: Awaited<ReturnType<typeof resolveReviewSources>>,
-  preferred: SourceId | "auto" | undefined,
-) {
-  if (!preferred || preferred === "auto") return sources[0];
-  return sources.find((source) => source.source === preferred);
-}
-
 export async function scanProduct(input: ScanProductInput): Promise<ScanResult> {
   const { query } = input;
   const demo = loadDemoScanResult(query);
   if (demo) return demo;
 
   const sources = await resolveReviewSources(query);
-  const source = chooseSource(sources, input.source);
-  if (!source) throw new ScanError("NO_REVIEWS", "No review sources found.");
+  const candidates =
+    input.source && input.source !== "auto"
+      ? sources.filter((candidate) => candidate.source === input.source)
+      : sources;
+  if (candidates.length === 0) throw new ScanError("NO_REVIEWS", "No review sources found.");
 
-  const adapter = getReviewSourceAdapter(source);
-  const page = await extractReviewContent(source, undefined, adapter?.extractOptions);
-  const reviews = mapSourceContentToReviews(source, [page]);
+  // Try sources in ranked order; skip any that block the crawl (e.g. Trustpilot/Amazon 403) or yield nothing.
+  let reviews: Review[] = [];
+  let usedSource = candidates[0];
+  for (const candidate of candidates) {
+    try {
+      const adapter = getReviewSourceAdapter(candidate);
+      const page = await extractReviewContent(candidate, undefined, adapter?.extractOptions);
+      const mapped = mapSourceContentToReviews(candidate, [page]);
+      if (mapped.length > reviews.length) {
+        reviews = mapped;
+        usedSource = candidate;
+      }
+      if (reviews.length >= 5) break;
+    } catch {
+      // source blocked or failed — try the next candidate
+    }
+  }
   if (reviews.length === 0) throw new ScanError("NO_REVIEWS", "No reviews found.");
 
   const llmScores = await analyzeReviewsWithLlm(reviews).catch(() => undefined);
   const result = analyzeReviews({
     product: {
       name: query,
-      url: source.url,
-      source: source.source,
+      url: usedSource.url,
+      source: usedSource.source,
     },
     reviews,
     llm: llmScores,

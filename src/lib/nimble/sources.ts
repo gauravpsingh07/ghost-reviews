@@ -114,7 +114,6 @@ export async function resolveReviewSources(
 
   const response = await client.search({
     query: buildReviewSourceSearchQuery(trimmed),
-    focus: "web",
     max_results: options.maxSearchResults ?? 10,
   });
 

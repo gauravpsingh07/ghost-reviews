@@ -664,6 +664,16 @@ Phase 9 — Deploy & submission ✅ (89 tests, build + local production smoke gr
 > 2026-06-09 — Fix (Claude): "Share this haunting" now opens the generated OG card in a new tab on
 > desktop (the old silent clipboard-only path failed quietly); native share kept for touch devices.
 > Verified the click opens `/api/share-card`. Build + lint + 89 tests green.
+>
+> 2026-06-09 — Live-keys debugging (Claude): verified the Nimble API genuinely works (both `/search`
+> and `/extract` return 200 with a real key). Fixed two app bugs: removed the invalid `focus:"web"`
+> field (Nimble `/search` returned 422), and made `scanProduct` try fallback sources instead of dying
+> when one is blocked (Trustpilot/Amazon return 403 to crawlers). Live end-to-end review *scoring* is
+> still limited: the review-rich sites (Trustpilot/Amazon) block crawling, and crawlable pages (Reddit
+> etc.) lack parseable star ratings → real-product scans now return a graceful 404 "no reviews".
+> Recommendation: deploy with DEMO_MODE=true (polished + reliable); demo it on the built-in fixtures.
+> Note: the Gemini key provided was the wrong type (not `AIza…`, free-tier limit 0) — LLM is optional
+> (deterministic signals carry 55% of the score without it).
 
 - 2026-06-09 — Phase 0: repo init, master build plan, tested secret-scanning pre-commit hook, free-tier ($0) docs — commits `dc242c8..ac9b6d1`
 - 2026-06-09 — Phase 1: Next.js 15.5 + React 19 + Tailwind v4 + TS scaffold, shadcn button + framer-motion + lucide, eslint 9 / prettier / vitest, folder structure, zod env + theme tokens. `npm run build` ✓, tests 2/2 ✓ — commits `f69c67f..da2ee02`
